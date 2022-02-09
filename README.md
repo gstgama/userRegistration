@@ -1,4 +1,4 @@
-# UserRegistration
+# A simple page of user registration
 
 This project was generated with:
 
