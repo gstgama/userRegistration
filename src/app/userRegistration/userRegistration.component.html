@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row justify-content-md-center mt-5">
+    <div class="col-5">
+
+      <form [formGroup]="form">
+        <div class="form-group mb-2">
+          <label for="nome" class="form-label">Nome</label>
+          <input type="text" id="nome" class="form-control" [ngClass]="{'is-invalid': nome.invalid && nome.touched}"
+            formControlName="nome">
+          <div *ngIf="(nome.invalid && nome.touched) || nome.dirty">
+            <small *ngIf="nome.errors?.required" class="text-danger">Nome obrigatório</small>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control" [ngClass]="{'is-invalid': email.invalid && email.touched}"
+            formControlName="email">
+          <div *ngIf="(email.invalid && email.touched) || email.dirty">
+            <small *ngIf="email.errors?.required" class="text-danger">Email obrigatório</small>
+            <small *ngIf="email.errors?.pattern" class="text-danger">Informe um email
+              válido</small>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label for="senha" class="form-label">Senha</label>
+          <input type="password" id="senha" class="form-control"
+            [ngClass]="{'is-invalid': senha.invalid && senha.touched}" formControlName="senha">
+          <div *ngIf="(senha.invalid && senha.touched) || senha.dirty">
+            <small *ngIf="senha.errors?.required" class="text-danger">Senha obrigatória</small>
+            <small *ngIf="senha.errors?.minlength" class="text-danger">Precisa ter no mínimo 6 caracteres</small>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="repetirSenha" class="form-label">Repetir senha</label>
+          <input type="password" id="repetirSenha" class="form-control"
+            [ngClass]="{'is-invalid': repetirSenha.invalid && repetirSenha.touched}" formControlName="repetirSenha">
+          <div *ngIf="(repetirSenha.invalid && repetirSenha.touched) || repetirSenha.dirty">
+            <small *ngIf="repetirSenha.errors?.required" class="text-danger">Repetir senha é obrigatório</small>
+            <small *ngIf="repetirSenha.errors?.mustMatch" class="text-danger">Senhas precisam ser iguais</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" (click)="openModal(template)">Cadastrar</button>
+        </div>
+      </form>
+
+      <ng-template #template>
+
+        <div *ngIf="form.status === 'VALID'">
+          <div class="modal-header">
+            <h4 class="modal-title pull-left text-success">Sucesso!</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close"
+              (click)="modalRef?.hide(); formReset(form)">
+              <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Usuário cadastrado com sucesso
+          </div>
+        </div>
+
+        <div *ngIf="form.status === 'INVALID'">
+          <div class="modal-header">
+            <h4 class="modal-title pull-left text-danger">Erro!</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+              <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Por favor preencha os campos corretamente
+          </div>
+        </div>
+
+      </ng-template>
+
+    </div>
+  </div>
+</div>
